@@ -1,5 +1,68 @@
-name: workflowname
-on: push
+# name: workflowrename
+# on: push
+# jobs:
+#   hello:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           ref: yahooo
+#       - run: |
+#           ls -a
+#           echo ""
+#           git branch -a
+
+# name: Contextx
+# on: push
+# jobs:
+#   print:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "${{ github.actor }}"
+
+# name: Varriabels
+# on: push
+# jobs:
+#   print:
+#     runs-on: ubuntu-latest
+#     env:
+#       USERNAME: ${{ vars.USERNAME }}
+#     steps:
+#       - run: echo "${USERNAME}"
+
+
+# name: Comment
+# on: pull_request
+# jobs:
+#   comment:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       pull-requests: write
+#       contents: read
+#     steps:
+#       - uses: actions/checkout@v4
+#       - run: |
+#           PR_NUMBER=$(gh pr view --json number -q .number)
+#           gh pr comment $PR_NUMBER --body "Hello, ${GITHUB_ACTOR}"
+#         env:
+#           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+name: Comment
+on: pull_request
 jobs:
-  hello:
-  runs-on: ubuntu-latest
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # 完全な履歴をフェッチ
+          ref: ${{ github.head_ref }} # プルリクエストのブランチをチェックアウト
+
+      - run: |
+          PR_NUMBER=$(gh pr view --json number -q .number)
+          gh pr comment $PR_NUMBER --body "Hello, ${GITHUB_ACTOR}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
