@@ -1,4 +1,4 @@
-name: workflowname
+name: workflowrename
 on: push
 jobs:
   hello:
