@@ -1,0 +1,5 @@
+name: workflowname
+on: push
+jobs:
+  hello:
+  runs-on: ubuntu-latest
