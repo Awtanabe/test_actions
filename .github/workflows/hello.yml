@@ -1,13 +1,21 @@
-name: workflowrename
+# name: workflowrename
+# on: push
+# jobs:
+#   hello:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#         with:
+#           ref: yahooo
+#       - run: |
+#           ls -a
+#           echo ""
+#           git branch -a
+
+name: Contextx
 on: push
 jobs:
-  hello:
+  print:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: yahooo
-      - run: |
-          ls -a
-          echo ""
-          git branch -a
+      - run echo "${{ github.actor }}"
