@@ -8,4 +8,5 @@ jobs:
       - run: |
           ls -a
           echo ""
+          git fetch
           git branch -a
