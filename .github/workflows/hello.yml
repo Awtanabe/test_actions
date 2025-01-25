@@ -36,11 +36,13 @@ on: pull_request
 jobs:
   comment:
     runs-on: ubuntu-latest
-    permissions:           # GITHUB_TOKENの権限を指定
-      pull-requests: write # プルリクエストの書き込みを許可
+    permissions:
+      pull-requests: write
       contents: read
-steps:
-  - uses: actions/checkout@v4
-  - run: gh pr comment "${GITHUB_HEAD_REF}" --body "Hello, ${GITHUB_ACTOR}"
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub CLI用クレデンシャル
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          PR_NUMBER=$(gh pr view --json number -q .number)
+          gh pr comment $PR_NUMBER --body "Hello, ${GITHUB_ACTOR}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
