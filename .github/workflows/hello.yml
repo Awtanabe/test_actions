@@ -22,7 +22,7 @@
 
 name: Varriabels
 on: push
-jos:
+jobs:
   print:
     runs-on: ubuntu-latest
     env:
