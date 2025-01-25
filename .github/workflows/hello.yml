@@ -3,5 +3,8 @@ on: push
 jobs:
   hello:
     runs-on: ubuntu-latest
-    steps:
-      - run: echo $PWD
+    steps:      
+      - run: |
+          ls -a
+          echo ""
+          git branch -a
