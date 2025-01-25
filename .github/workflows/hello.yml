@@ -20,12 +20,27 @@
 #     steps:
 #       - run: echo "${{ github.actor }}"
 
-name: Varriabels
-on: push
+# name: Varriabels
+# on: push
+# jobs:
+#   print:
+#     runs-on: ubuntu-latest
+#     env:
+#       USERNAME: ${{ vars.USERNAME }}
+#     steps:
+#       - run: echo "${USERNAME}"
+
+
+name: Comment
+on: pull_request
 jobs:
-  print:
+  comment:
     runs-on: ubuntu-latest
-    env:
-      USERNAME: ${{ vars.USERNAME }}
-    steps:
-      - run: echo "${USERNAME}"
+    permissions:           # GITHUB_TOKENの権限を指定
+      pull-requests: write # プルリクエストの書き込みを許可
+      contents: read
+steps:
+      - uses: actions/checkout@v4
+      - run: gh pr comment "${GITHUB_HEAD_REF}" --body "Hello, ${GITHUB_ACTOR}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub CLI用クレデンシャル
